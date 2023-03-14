@@ -12,9 +12,13 @@ const initStore = () =>
 </script>
 
 <template>
-  <div class="home page">
-    <HomeWelcome v-if="!tasks.length" @newTask="initStore" />
-    <Tasks :tasks="tasks" v-else />
+  <div class="home">
+    <div class="container">
+      <div class="home__inner page">
+        <HomeWelcome v-if="!tasks.length" @newTask="initStore" />
+        <Tasks :tasks="tasks" v-else />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,11 +26,12 @@ const initStore = () =>
 @import @styles/vars
 
 .home
-  display: flex
-  justify-content: center
-  align-items: center
-  flex-direction: column
   background-color: $four
+  &__inner
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
   &__subtitle
     font-size: 28px
 </style>

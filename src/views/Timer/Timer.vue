@@ -1,7 +1,134 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted, onUnmounted, ref, watch } from "vue";
+import { tasksStore } from "@/store";
+import { storeToRefs } from "pinia";
+import { useRoute, useRouter } from "vue-router";
+import CheckMarks from "@/components/CheckMarks.vue";
+import TImerCircle from "@/components/TimerCircle.vue";
+import Controls from "@/components/Controls.vue";
+import { settingsStore } from "@/store/settings";
+import { convertMinutesToMilliseconds } from "@/helpers";
+
+const router = useRouter();
+const { id } = useRoute().params;
+const store = tasksStore();
+const { tasks } = storeToRefs(store);
+const { settings } = storeToRefs(settingsStore());
+const currentTask = tasks.value.find((task) => task.id === id);
+const timer = ref<NodeJS.Timer | null>(null);
+const timersCount = ref<number>(0);
+
+watch(timersCount, () => {
+  if (timersCount.value >= 8) {
+    time.value = 0;
+  }
+});
+
+onMounted(() => {
+  if (!currentTask) {
+    router.push("/");
+  }
+});
+
+const getMilliseconds = () => {
+  if (timersCount.value === 7) {
+    return convertMinutesToMilliseconds(settings.value.longBreak);
+  }
+
+  if (timersCount.value % 2 === 0) {
+    return convertMinutesToMilliseconds(settings.value.workDuration);
+  } else {
+    return convertMinutesToMilliseconds(settings.value.shortBreak);
+  }
+};
+const time = ref<number>(getMilliseconds());
+
+const startTimer = () => {
+  if (timer.value || timersCount.value >= 8) {
+    return;
+  }
+
+  timer.value = setInterval(() => {
+    if (time.value === 0 && timer.value) {
+      clearInterval(timer.value);
+      timer.value = null;
+      timersCount.value++;
+
+      if (timersCount.value > 7) {
+        return;
+      }
+
+      time.value = getMilliseconds();
+      return;
+    }
+
+    time.value -= 1_000;
+  }, 1_000);
+};
+
+const stopTimer = () => {
+  if (!timer.value) {
+    return;
+  }
+
+  clearInterval(timer.value);
+  timer.value = null;
+};
+
+const skipTimer = () => {
+  if (timersCount.value > 7) {
+    return;
+  }
+
+  if (timer.value) {
+    clearInterval(timer.value);
+    timer.value = null;
+  }
+
+  timersCount.value++;
+  time.value = getMilliseconds();
+};
+
+const endTimer = () => {
+  if (timer.value) {
+    clearInterval(timer.value);
+  }
+
+  router.push("/");
+};
+
+onUnmounted(() => {
+  if (timer.value) {
+    clearInterval(timer.value);
+  }
+});
+</script>
 
 <template>
   <div class="timer page">
-    <h1>Timer</h1>
+    <div class="container">
+      <div class="timer__inner">
+        <h2 class="timer__title">{{ currentTask?.name }}</h2>
+        <CheckMarks :completed-check-marks-count="timersCount / 2" />
+        <TImerCircle :time="time" :timers-count="timersCount" />
+        <Controls
+          :end="endTimer"
+          :start="startTimer"
+          :skip="skipTimer"
+          :stop="stopTimer"
+          :is-started="!!timer"
+        />
+      </div>
+    </div>
   </div>
 </template>
+
+<style lang="sass" scoped>
+@import @styles/vars
+
+.timer
+  background-color: $four
+  text-align: center
+  &__inner
+    padding: 20px
+</style>

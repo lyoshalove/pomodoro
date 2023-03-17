@@ -1,9 +1,9 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="about">
+  <div class="about page">
     <div class="container">
-      <div class="about__inner page">
+      <div class="about__inner">
         <h2 class="about__title">
           Будь продуктивным с помидоркой - эффективный тайм менеджемент
         </h2>

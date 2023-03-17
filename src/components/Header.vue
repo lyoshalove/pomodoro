@@ -1,6 +1,10 @@
 <script lang="ts" setup>
+import { isVisibleModalStore } from "@/store";
 import logo from "@images/logo.svg";
-import { headerMenu } from "@/constants";
+import playlist from "@images/playlist.svg";
+import settings from "@images/settings.svg";
+
+const store = isVisibleModalStore();
 </script>
 
 <template>
@@ -12,21 +16,19 @@ import { headerMenu } from "@/constants";
           <span class="header__logo-text">Помидорка</span>
         </RouterLink>
         <ul class="header__menu">
-          <li
-            class="header__menu-item"
-            v-for="menuItem in headerMenu"
-            :key="menuItem.id"
-          >
-            <RouterLink :to="menuItem.to">
-              <img
-                v-if="menuItem.icon"
-                class="header__menu-icon"
-                :src="menuItem.icon"
-                :alt="menuItem.text"
-              />
-              <span v-else class="header__menu-description">{{
-                menuItem.text
-              }}</span>
+          <li class="header__menu-item">
+            <RouterLink to="/about">
+              В чем прикол?
+            </RouterLink>
+          </li>
+          <li class="header__menu-item">
+            <button @click="() => store.showModal()">
+              <img class="header__menu-icon" :src="playlist" alt="Плэйлист" />
+            </button>
+          </li>
+          <li class="header__menu-item">
+            <RouterLink to="/settings">
+              <img class="header__menu-icon" :src="settings" alt="Настройки" />
             </RouterLink>
           </li>
         </ul>
@@ -59,6 +61,9 @@ import { headerMenu } from "@/constants";
     display: flex
     align-items: center
     gap: 0 25px
+    &-item
+      display: flex
+      align-items: center
     &-icon
-      width: 25px
+      width: 24px
 </style>

@@ -4,8 +4,8 @@ import pencil from "@images/pencil.svg";
 import checkMark from "@images/check-mark.svg";
 import trash from "@images/trash.svg";
 import { defineProps, ref, VNodeRef, nextTick } from "vue";
-import { tasksStore } from "@/store/tasks";
-import { isEditingStore } from "@/store/isEditing";
+import { tasksStore, isEditingStore } from "@/store";
+import { useRouter } from "vue-router";
 
 interface IProps {
   id: string;
@@ -18,11 +18,16 @@ const isEditing = ref<boolean>(false);
 const newName = ref<string>(props.name);
 const store = tasksStore();
 const inputRef = ref<VNodeRef | null>(null);
+const router = useRouter();
 
 const updateTaskName = (newName: string, id: string) =>
   store.updateName(newName, id);
 
-const deleteTask = (id: string) => store.deleteTask(id);
+const deleteTask = (id: string) => {
+  if (!isEditing.value) {
+    store.deleteTask(id);
+  }
+};
 
 const startEditing = () => {
   editingStore.setEditing(true);
@@ -38,10 +43,15 @@ const endEditing = () => {
     updateTaskName(newName.value, props.id);
   }
 };
+const goToTimer = (id: string) => {
+  if (!isEditing.value) {
+    router.push(`/timer/${id}`);
+  }
+};
 </script>
 
 <template>
-  <li class="tasks__item">
+  <li class="tasks__item" @click="() => goToTimer(id)">
     <div class="tasks__item-left">
       <img :src="clock" alt="Иконка часов" class="tasks__item-clock" />
       <div v-if="!isEditing" class="tasks__item-name">{{ props.name }}</div>
@@ -51,26 +61,27 @@ const endEditing = () => {
         type="text"
         v-model="newName"
         class="tasks__item-input"
+        @click.stop
       />
     </div>
     <div class="tasks__item-right">
       <img
         v-if="!isEditing"
         :src="pencil"
-        @click="startEditing"
+        @click.stop="startEditing"
         alt="Изменить название"
         class="tasks__item-action tasks__item-pencil"
       />
       <img
         v-else
         :src="checkMark"
-        @click="endEditing"
+        @click.stop="endEditing"
         alt="Изменить название"
         class="tasks__item-action"
       />
       <img
         :src="trash"
-        @click="() => deleteTask(id)"
+        @click.stop="() => deleteTask(id)"
         alt="Удалить задачу"
         class="tasks__item-action"
       />

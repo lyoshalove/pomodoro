@@ -2,10 +2,9 @@
 import { defineProps } from "vue";
 import TasksItem from "@/components/TasksItem.vue";
 import { ITask } from "@/types";
-import { tasksStore } from "@/store/tasks";
+import { tasksStore, isEditingStore } from "@/store";
 import { nanoid } from "nanoid";
 import { storeToRefs } from "pinia";
-import { isEditingStore } from "@/store/isEditing";
 
 interface IProps {
   tasks: ITask[];

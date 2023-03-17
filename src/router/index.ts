@@ -7,7 +7,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/timer",
+    path: "/timer/:id",
     component: () => import("@/views/Timer/Timer.vue"),
   },
   {
@@ -17,10 +17,6 @@ const routes = [
   {
     path: "/settings",
     component: () => import("@/views/Settings/Settings.vue"),
-  },
-  {
-    path: "/playlist",
-    component: () => import("@/views/Playlist/Playlist.vue"),
   },
 ];
 

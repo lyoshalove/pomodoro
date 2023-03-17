@@ -2,7 +2,7 @@
 import HomeWelcome from "@/components/HomeWelcome.vue";
 import Tasks from "@/components/Tasks.vue";
 import { storeToRefs } from "pinia";
-import { tasksStore } from "@/store/tasks";
+import { tasksStore } from "@/store";
 import { nanoid } from "nanoid";
 
 const store = tasksStore();

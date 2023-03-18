@@ -48,4 +48,16 @@ defineProps<IProps>();
       height: 70px
       img
         width: 20px
+
+@media(max-width: 480px)
+  .controls
+    margin: 15px 0 0
+    gap: 0 15px
+    &__btn
+      width: 35px
+      height: 35px
+      font-size: 12px
+      &-big
+        width: 55px
+        height: 55px
 </style>

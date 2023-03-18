@@ -4,7 +4,7 @@ import { tasksStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import CheckMarks from "@/components/CheckMarks.vue";
-import TImerCircle from "@/components/TimerCircle.vue";
+import TimerCircle from "@/components/TimerCircle.vue";
 import Controls from "@/components/Controls.vue";
 import { settingsStore } from "@/store/settings";
 import {
@@ -18,7 +18,8 @@ const router = useRouter();
 const { id } = useRoute().params;
 const store = tasksStore();
 const { tasks } = storeToRefs(store);
-const { settings } = storeToRefs(settingsStore());
+const settingsStoreEntity = settingsStore();
+const { settings } = storeToRefs(settingsStoreEntity);
 const currentTask = tasks.value.find((task) => task.id === id);
 const timer = ref<ReturnType<typeof setInterval> | null>(null);
 const timersCount = ref<number>(0);
@@ -35,6 +36,7 @@ onMounted(() => {
     return;
   }
 
+  settingsStoreEntity.addSettingsToLocalStorage();
   initNotifications();
 });
 
@@ -130,7 +132,7 @@ onUnmounted(() => {
       <div class="timer__inner">
         <h2 class="timer__title">{{ currentTask?.name }}</h2>
         <CheckMarks :completed-check-marks-count="timersCount / 2" />
-        <TImerCircle :time="time" :timers-count="timersCount" />
+        <TimerCircle :time="time" :timers-count="timersCount" />
         <Controls
           :end="endTimer"
           :start="startTimer"
@@ -149,6 +151,6 @@ onUnmounted(() => {
 .timer
   background-color: $primary
   text-align: center
-  &__inner
-    padding: 20px
+  display: flex
+  align-items: center
 </style>

@@ -13,6 +13,7 @@
     width: 3px
   &::-webkit-scrollbar-track
     border-radius: 100vh
+    background-color: $primary
   &::-webkit-scrollbar-thumb
     background: $third
     border-radius: 100vh
@@ -66,6 +67,8 @@ button
   font-size: inherit
   font-family: inherit
   cursor: pointer
+  font-weight: inherit
+  text-align: inherit
 
 .btn
   border: 2px solid $secondary
@@ -88,3 +91,32 @@ h2
 
 h3
   font-size: 26px
+
+@media(max-width: 768px)
+  .page
+    min-height: calc(100vh - 50px)
+
+  h1
+    font-size: 28px
+
+  h2
+    font-size: 26px
+
+  h3
+    font-size: 22px
+
+@media(max-width: 480px)
+  .page
+    padding: 25px 0
+
+  h1
+    font-size: 24px
+
+  h2
+    font-size: 22px
+
+  h3
+    font-size: 18px
+
+  .btn
+    padding: 4px 8px

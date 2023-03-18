@@ -102,8 +102,17 @@ const closeModal = () => store.hideModal();
   margin: 0 auto 25px
   max-width: 300px
   width: 100%
-  color: red
 
-.n-base-select-menu .n-base-select-option.n-base-select-option--selected
-  color: red
+@media(max-width: 480px)
+  .playlist
+    &__header
+      &-text
+        font-size: 22px
+      &-cross
+        width: 18px
+    &__title
+      margin: 10px 0 15px
+
+  .n-select
+    margin: 0 auto 15px
 </style>

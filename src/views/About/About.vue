@@ -91,7 +91,7 @@
         content: ''
         position: absolute
         left: 0
-        top: 50%
+        top: 11px
         transform: translate(0, -50%)
         width: 6px
         height: 6px
@@ -99,4 +99,23 @@
         background-color: $secondary
       &:not(:last-child)
         margin: 0 0 5px
+
+@media(max-width: 768px)
+  .about
+    &__cards
+      grid-template-columns: 1fr
+    &__card
+      &-big
+        grid-column: 1 / 1
+
+@media(max-width: 480px)
+  .about
+    &__title
+      margin: 0 0 20px
+    &__cards
+      gap: 15px 15px
+    &__card
+      padding: 15px
+      &-title
+        margin: 0 0 10px
 </style>

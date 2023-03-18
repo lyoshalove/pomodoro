@@ -2,9 +2,10 @@
 import pencil from "@images/pencil.svg";
 import checkMark from "@images/check-mark.svg";
 import trash from "@images/trash.svg";
-import { defineProps, ref, VNodeRef, nextTick } from "vue";
+import { defineProps, ref, VNodeRef, nextTick, onMounted } from "vue";
 import { tasksStore, isEditingStore } from "@/store";
 import { useRouter } from "vue-router";
+import { sliceText } from "@/helpers";
 
 interface IProps {
   id: string;
@@ -12,12 +13,29 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
-const editingStore = isEditingStore();
 const isEditing = ref<boolean>(false);
 const newName = ref<string>(props.name);
 const store = tasksStore();
 const inputRef = ref<VNodeRef | null>(null);
 const router = useRouter();
+const charsCount = ref<number>(30);
+const editingStore = isEditingStore();
+
+const setCharsCountOnResize = (windowWidth: number) => {
+  if (windowWidth < 480) {
+    charsCount.value = 15;
+    return;
+  } else if (windowWidth < 520) {
+    charsCount.value = 20;
+    return;
+  } else {
+    charsCount.value = 30;
+  }
+};
+
+onMounted(() =>
+  setCharsCountOnResize(document.body.getBoundingClientRect().width)
+);
 
 const updateTaskName = (newName: string, id: string) =>
   store.updateName(newName, id);
@@ -52,7 +70,9 @@ const goToTimer = (id: string) => {
 <template>
   <li class="tasks__item" @click="() => goToTimer(id)">
     <div class="tasks__item-left">
-      <div v-if="!isEditing" class="tasks__item-name">{{ props.name }}</div>
+      <span v-if="!isEditing" class="tasks__item-name">{{
+        sliceText(props.name, charsCount)
+      }}</span>
       <input
         v-else
         ref="inputRef"
@@ -104,7 +124,7 @@ const goToTimer = (id: string) => {
     display: flex
     align-items: center
     gap: 0 20px
-    flex-grow: 1
+    flex-basis: 60%
   &-right
     display: flex
     align-items: center
@@ -117,4 +137,10 @@ const goToTimer = (id: string) => {
     cursor: pointer
   &-pencil
     width: 25px
+
+@media(max-width: 480px)
+  .tasks__item
+    gap: 0 20px
+    &-right
+      gap: 0 10px
 </style>

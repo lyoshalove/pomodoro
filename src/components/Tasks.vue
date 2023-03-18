@@ -55,10 +55,17 @@ defineProps<IProps>();
     max-width: 500px
     width: 100%
     margin: 25px auto
-    max-height: 400px
+    max-height: calc(100vh - 300px)
+    min-height: 300px
     overflow: hidden
     overflow-y: auto
     padding: 0 5px 0 0
   &__button
     margin: auto auto 0
+
+@media(max-width: 480px)
+  .tasks
+    &__list
+      max-height: calc(100vh - 245px)
+      margin: 15px auto
 </style>

@@ -21,7 +21,14 @@ const emits = defineEmits(["newTask"]);
     justify-content: center
     align-items: center
     flex-direction: column
+    text-align: center
   &__description
     margin: 10px 0 20px
-    font-size: 22px
+    font-size: 18px
+
+@media(max-width: 480px)
+  .home
+    &__description
+      font-size: 16px
+      margin: 10px 0 15px
 </style>

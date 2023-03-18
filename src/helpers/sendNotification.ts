@@ -1,8 +1,6 @@
 declare var Notification: any;
 
-import { settingsStore } from "@/store/settings";
-import { storeToRefs } from "pinia";
-const { settings } = storeToRefs(settingsStore());
+const settings = JSON.parse(localStorage.getItem('settings')!);
 
 const createNotification = (title: string, text: string, icon: string) => {
   let notification = new Notification(title, {
@@ -27,7 +25,7 @@ export const sendNotification = (
   text: string,
   icon: string = "https://shortest.link/kSu2"
 ) => {
-  if (!settings.value.allowNotifications) {
+  if (!settings.allowNotifications) {
     return;
   }
 

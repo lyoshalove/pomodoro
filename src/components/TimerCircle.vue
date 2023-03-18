@@ -49,4 +49,16 @@ const getDescription = () => {
     font-size: 54px
     font-weight: bold
     color: $secondary
+
+@media(max-width: 768px)
+  .circle
+    width: 400px
+    height: 400px
+
+@media(max-width: 480px)
+  .circle
+    width: 250px
+    height: 250px
+    &__time
+      font-size: 44px
 </style>

@@ -2,10 +2,10 @@
 import pencil from "@images/pencil.svg";
 import checkMark from "@images/check-mark.svg";
 import trash from "@images/trash.svg";
-import { defineProps, ref, VNodeRef, nextTick, onMounted } from "vue";
+import { defineProps, ref, VNodeRef, nextTick } from "vue";
 import { tasksStore, isEditingStore } from "@/store";
 import { useRouter } from "vue-router";
-import { sliceText } from "@/helpers";
+import { setCharsCount, sliceText } from "@/helpers";
 
 interface IProps {
   id: string;
@@ -18,24 +18,8 @@ const newName = ref<string>(props.name);
 const store = tasksStore();
 const inputRef = ref<VNodeRef | null>(null);
 const router = useRouter();
-const charsCount = ref<number>(30);
+const charsCount = ref<number>(setCharsCount(document.body.getBoundingClientRect().width));
 const editingStore = isEditingStore();
-
-const setCharsCountOnResize = (windowWidth: number) => {
-  if (windowWidth < 480) {
-    charsCount.value = 15;
-    return;
-  } else if (windowWidth < 520) {
-    charsCount.value = 20;
-    return;
-  } else {
-    charsCount.value = 30;
-  }
-};
-
-onMounted(() =>
-  setCharsCountOnResize(document.body.getBoundingClientRect().width)
-);
 
 const updateTaskName = (newName: string, id: string) =>
   store.updateName(newName, id);
@@ -53,13 +37,15 @@ const startEditing = () => {
     inputRef.value.focus();
   });
 };
+
 const endEditing = () => {
   if (newName.value.trim().length) {
     editingStore.setEditing(false);
     isEditing.value = false;
-    updateTaskName(newName.value, props.id);
+    updateTaskName(newName.value.trim(), props.id);
   }
 };
+
 const goToTimer = (id: string) => {
   if (!isEditing.value) {
     router.push(`/timer/${id}`);
@@ -71,7 +57,7 @@ const goToTimer = (id: string) => {
   <li class="tasks__item" @click="() => goToTimer(id)">
     <div class="tasks__item-left">
       <span v-if="!isEditing" class="tasks__item-name">{{
-        sliceText(props.name, charsCount)
+        sliceText(name, charsCount)
       }}</span>
       <input
         v-else

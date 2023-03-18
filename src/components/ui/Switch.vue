@@ -12,6 +12,7 @@ const props = defineProps<IProps>();
 const emits = defineEmits(["updateSettings"]);
 
 const switchValue = ref<boolean>(props.value);
+
 const setNewSwitchValue = (value: boolean) => {
   switchValue.value = value;
   emits("updateSettings", {

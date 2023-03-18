@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import Slider from "@/components/Slider.vue";
-import Switch from "@/components/Switch.vue";
+import Slider from "@/components/ui/Slider.vue";
+import Switch from "@/components/ui/Switch.vue";
 import { settingsStore } from "@/store/settings";
 import { ISettingsStore } from "@/types";
 import { storeToRefs } from "pinia";

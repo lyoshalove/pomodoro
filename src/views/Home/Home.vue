@@ -2,13 +2,17 @@
 import HomeWelcome from "@/components/HomeWelcome.vue";
 import Tasks from "@/components/Tasks.vue";
 import { storeToRefs } from "pinia";
-import { tasksStore } from "@/store";
+import { settingsStore, tasksStore } from "@/store";
 import { nanoid } from "nanoid";
+import { onMounted } from "vue";
 
 const store = tasksStore();
 const { tasks } = storeToRefs(store);
+const settings = settingsStore();
 const initStore = () =>
   store.setNewTasks({ id: nanoid(), name: "Безымянная задача" });
+
+onMounted(() => settings.addSettingsToLocalStorage());
 </script>
 
 <template>

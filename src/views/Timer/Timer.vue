@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, watch } from "vue";
-import { tasksStore } from "@/store";
+import { settingsStore, tasksStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import CheckMarks from "@/components/CheckMarks.vue";
 import TimerCircle from "@/components/TimerCircle.vue";
 import Controls from "@/components/Controls.vue";
-import { settingsStore } from "@/store/settings";
 import {
   convertMinutesToMilliseconds,
   initNotifications,
@@ -18,8 +17,7 @@ const router = useRouter();
 const { id } = useRoute().params;
 const store = tasksStore();
 const { tasks } = storeToRefs(store);
-const settingsStoreEntity = settingsStore();
-const { settings } = storeToRefs(settingsStoreEntity);
+const { settings } = storeToRefs(settingsStore());
 const currentTask = tasks.value.find((task) => task.id === id);
 const timer = ref<ReturnType<typeof setInterval> | null>(null);
 const timersCount = ref<number>(0);
@@ -36,7 +34,6 @@ onMounted(() => {
     return;
   }
 
-  settingsStoreEntity.addSettingsToLocalStorage();
   initNotifications();
 });
 
@@ -51,6 +48,7 @@ const getMilliseconds = () => {
     return convertMinutesToMilliseconds(settings.value.shortBreak);
   }
 };
+
 const time = ref<number>(getMilliseconds());
 
 const notificationsHandle = () => {

@@ -1,6 +1,8 @@
+import { ISettingsStore } from "@/types";
+
 declare var Notification: any;
 
-const settings = JSON.parse(localStorage.getItem('settings')!);
+const settings: ISettingsStore = JSON.parse(localStorage.getItem('settings')!);
 
 const createNotification = (title: string, text: string, icon: string) => {
   let notification = new Notification(title, {

@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { isVisibleModalStore } from "@/store";
 import logo from "@images/logo.svg";
-import Burger from "./Burger.vue";
+import Burger from "./ui/Burger.vue";
 import { bodyOverflow } from "@/helpers";
 
 const store = isVisibleModalStore();

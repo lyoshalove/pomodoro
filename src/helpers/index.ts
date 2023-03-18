@@ -4,3 +4,4 @@ export * from "./sendNotification";
 export * from "./playSound";
 export * from "./sliceText";
 export * from "./bodyOverflow";
+export * from "./setCharsCount";

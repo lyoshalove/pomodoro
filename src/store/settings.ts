@@ -16,7 +16,10 @@ export const settingsStore = defineStore("settings", {
       this.addSettingsToLocalStorage();
     },
     addSettingsToLocalStorage() {
-      localStorage.setItem("settings", JSON.stringify(this.settings));
+      localStorage.setItem(
+        "settings",
+        JSON.stringify(this.settings || defaultSettings)
+      );
     },
   },
 });

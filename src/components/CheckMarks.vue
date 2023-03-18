@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import checkMarkFilled from "@images/check-mark-filled.svg";
 import checkMarkLined from "@images/check-mark-lined.svg";
+import { checkMarksCount } from "@/constants";
 
 interface IProps {
   completedCheckMarksCount: number;
 }
-
-const checkMarksCount = 4;
 
 defineProps<IProps>();
 </script>

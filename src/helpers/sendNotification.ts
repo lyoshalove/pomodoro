@@ -1,3 +1,5 @@
+declare var Notification: any;
+
 import { settingsStore } from "@/store/settings";
 import { storeToRefs } from "pinia";
 const { settings } = storeToRefs(settingsStore());
@@ -12,7 +14,7 @@ const createNotification = (title: string, text: string, icon: string) => {
 
 export const initNotifications = () => {
   if (Notification.permission !== "denied") {
-    Notification.requestPermission((permission) => {
+    Notification.requestPermission((permission: string) => {
       if (!("permission" in Notification)) {
         Notification.permission = permission;
       }

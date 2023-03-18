@@ -7,7 +7,12 @@ import CheckMarks from "@/components/CheckMarks.vue";
 import TImerCircle from "@/components/TimerCircle.vue";
 import Controls from "@/components/Controls.vue";
 import { settingsStore } from "@/store/settings";
-import { convertMinutesToMilliseconds } from "@/helpers";
+import {
+  convertMinutesToMilliseconds,
+  initNotifications,
+  playSound,
+  sendNotification,
+} from "@/helpers";
 
 const router = useRouter();
 const { id } = useRoute().params;
@@ -27,7 +32,10 @@ watch(timersCount, () => {
 onMounted(() => {
   if (!currentTask) {
     router.push("/");
+    return;
   }
+
+  initNotifications();
 });
 
 const getMilliseconds = () => {
@@ -43,6 +51,22 @@ const getMilliseconds = () => {
 };
 const time = ref<number>(getMilliseconds());
 
+const notificationsHandle = () => {
+  if (timersCount.value === 8) {
+    sendNotification("Молодец!", "Ты закончил задачу");
+    playSound();
+    return;
+  }
+
+  if (timersCount.value % 2 !== 0) {
+    sendNotification("Отдых", "Отдохни, бро");
+  } else {
+    sendNotification("Пора работать", "Воркай, бро");
+  }
+
+  playSound();
+};
+
 const startTimer = () => {
   if (timer.value || timersCount.value >= 8) {
     return;
@@ -53,12 +77,8 @@ const startTimer = () => {
       clearInterval(timer.value);
       timer.value = null;
       timersCount.value++;
-
-      if (timersCount.value > 7) {
-        return;
-      }
-
       time.value = getMilliseconds();
+      notificationsHandle();
       return;
     }
 

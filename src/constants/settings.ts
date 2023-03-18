@@ -4,6 +4,6 @@ export const defaultSettings: ISettingsStore = {
   workDuration: 25,
   shortBreak: 5,
   longBreak: 15,
-  allowNotifications: false,
+  allowNotifications: true,
   allowSound: true,
 };

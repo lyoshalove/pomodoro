@@ -57,9 +57,8 @@ const updateSettingsStore = (value: ISettingsStore) => {
 @import @styles/vars
 
 .settings
-  background-color: $four
+  background-color: $primary
   &__inner
-    padding: 100px 0 0
     max-width: 400px
     width: 100%
     margin: 0 auto

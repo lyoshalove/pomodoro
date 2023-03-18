@@ -16,7 +16,7 @@
               цель - помочь любому человеку меньше откладывать на потом и больше
               сосредотачиваться на повседневных задачах - будь то личных или
               профессиональных. Вдохновленный хорошо известной техникой
-              “помодоро”, Pomodorus делает выполнение задач более эффективным и
+              “помодоро”, Помидорка делает выполнение задач более эффективным и
               менее напряженным.
             </p>
           </div>
@@ -62,9 +62,8 @@
 <style lang="sass" scoped>
 @import @styles/vars
 
-.about
-  padding: 50px 0
-  background-color: $four
+.about  
+  background-color: $primary
   &__title
     text-align: center
     margin: 0 0 35px
@@ -75,9 +74,9 @@
     gap: 20px 20px
   &__card
     padding: 20px
-    background-color: $primary
+    border: 2px solid $secondary
     border-radius: 10px
-    color: $five
+    color: $third
     &-big
       grid-column: 1 / 3
     &-title
@@ -87,6 +86,7 @@
     &-item
       position: relative
       padding: 0 0 0 15px
+      color: $third
       &::before
         content: ''
         position: absolute
@@ -96,7 +96,7 @@
         width: 6px
         height: 6px
         border-radius: 50%
-        background-color: $five
+        background-color: $secondary
       &:not(:last-child)
         margin: 0 0 5px
 </style>

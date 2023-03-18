@@ -147,7 +147,7 @@ onUnmounted(() => {
 @import @styles/vars
 
 .timer
-  background-color: $four
+  background-color: $primary
   text-align: center
   &__inner
     padding: 20px

@@ -43,8 +43,10 @@ const getDescription = () => {
     align-items: center
     flex-direction: column
     border-radius: 50%
+    color: $third
     border: 15px solid $secondary
   &__time
     font-size: 54px
     font-weight: bold
+    color: $secondary
 </style>

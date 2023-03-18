@@ -71,7 +71,7 @@ const closeModal = () => store.hideModal();
   inset: 0 auto auto 0
   width: 100%
   z-index: 2
-  background-color: $four
+  background-color: $primary
   text-align: center
   transform: translate(0, 100%)
   transition: .3s
@@ -102,4 +102,8 @@ const closeModal = () => store.hideModal();
   margin: 0 auto 25px
   max-width: 300px
   width: 100%
+  color: red
+
+.n-base-select-menu .n-base-select-option.n-base-select-option--selected
+  color: red
 </style>

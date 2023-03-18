@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { isVisibleModalStore } from "@/store";
 import logo from "@images/logo.svg";
-import playlist from "@images/playlist.svg";
-import settings from "@images/settings.svg";
 
 const store = isVisibleModalStore();
 </script>
@@ -17,18 +15,16 @@ const store = isVisibleModalStore();
         </RouterLink>
         <ul class="header__menu">
           <li class="header__menu-item">
-            <RouterLink to="/about">
-              В чем прикол?
-            </RouterLink>
+            <RouterLink to="/about"> В чем прикол? </RouterLink>
           </li>
           <li class="header__menu-item">
             <button @click="() => store.showModal()">
-              <img class="header__menu-icon" :src="playlist" alt="Плэйлист" />
+              Плэйлист
             </button>
           </li>
           <li class="header__menu-item">
             <RouterLink to="/settings">
-              <img class="header__menu-icon" :src="settings" alt="Настройки" />
+              Настройки
             </RouterLink>
           </li>
         </ul>
@@ -64,6 +60,20 @@ const store = isVisibleModalStore();
     &-item
       display: flex
       align-items: center
+      position: relative
+      &::before
+        content: ''
+        position: absolute
+        inset: auto 0 -4px auto
+        width: 0
+        height: 2px
+        border-radius: 4px
+        background-color: $secondary
+        transition: .3s
+      &:hover
+        &::before
+          width: 100%
+          inset: auto auto -4px 0
     &-icon
       width: 24px
 </style>

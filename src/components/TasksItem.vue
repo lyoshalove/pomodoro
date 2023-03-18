@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import clock from "@images/clock.svg";
 import pencil from "@images/pencil.svg";
 import checkMark from "@images/check-mark.svg";
 import trash from "@images/trash.svg";
@@ -53,7 +52,6 @@ const goToTimer = (id: string) => {
 <template>
   <li class="tasks__item" @click="() => goToTimer(id)">
     <div class="tasks__item-left">
-      <img :src="clock" alt="Иконка часов" class="tasks__item-clock" />
       <div v-if="!isEditing" class="tasks__item-name">{{ props.name }}</div>
       <input
         v-else
@@ -97,9 +95,9 @@ const goToTimer = (id: string) => {
   align-items: center
   justify-content: space-between
   gap: 0 50px
-  padding: 10px 15px
-  background-color: $primary
+  padding: 5px 10px
   border-radius: 8px
+  border: 2px solid $secondary
   &:not(:last-child)
     margin: 0 0 10px
   &-left
@@ -114,11 +112,9 @@ const goToTimer = (id: string) => {
   &-input
     border-bottom: 1px solid $secondary
     flex-grow: 1
-  &-clock
-    width: 30px
   &-action
-    width: 25px
+    width: 20px
     cursor: pointer
   &-pencil
-    width: 30px
+    width: 25px
 </style>

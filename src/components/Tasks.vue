@@ -20,22 +20,35 @@ defineProps<IProps>();
 </script>
 
 <template>
-  <h2 class="home__subtitle">Все задачи</h2>
-  <ul class="tasks__list">
-    <TasksItem
-      v-for="task in tasks"
-      :key="task.id"
-      :id="task.id"
-      :name="task.name"
-    />
-  </ul>
-  <button @click="() => addNewTask()" class="tasks__button btn" :disabled="isEditing">
-    + Новая задачу
-  </button>
+  <div class="home__inner page">
+    <h2 class="home__subtitle">Все задачи</h2>
+    <ul class="tasks__list">
+      <TasksItem
+        v-for="task in tasks"
+        :key="task.id"
+        :id="task.id"
+        :name="task.name"
+      />
+    </ul>
+    <button
+      @click="() => addNewTask()"
+      class="tasks__button btn"
+      :disabled="isEditing"
+    >
+      + Новая задача
+    </button>
+  </div>
 </template>
 
 <style lang="sass" scoped>
 @import @styles/vars
+
+.home
+  &__inner
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
 
 .tasks
   &__list
@@ -45,4 +58,7 @@ defineProps<IProps>();
     max-height: 400px
     overflow: hidden
     overflow-y: auto
+    padding: 0 5px 0 0
+  &__button
+    margin: auto auto 0
 </style>

@@ -10,11 +10,11 @@
 
 *
   &::-webkit-scrollbar
-    width: 5px
+    width: 3px
   &::-webkit-scrollbar-track
     border-radius: 100vh
   &::-webkit-scrollbar-thumb
-    background: $secondary
+    background: $third
     border-radius: 100vh
 
 img
@@ -41,7 +41,7 @@ body
   font-family: 'Noto Sans', sans-serif
   font-size: 16px
   font-weight: 400
-  color: $secondary
+  color: $third
   line-height: 1.3
 
 #app
@@ -49,7 +49,7 @@ body
 
 .page
   min-height: calc(100vh - 60px)
-  padding: 15px 0
+  padding: 50px 0
 
 input
   background: none
@@ -72,8 +72,10 @@ button
   padding: 8px 14px
   font-weight: bold
   border-radius: 8px
-  background-color: $four
-  color: $five
+  color: $third
+  transition: .3s
+  &:hover
+    background-color: $secondary
   &:disabled
     opacity: .4
     cursor: not-allowed

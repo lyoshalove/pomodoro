@@ -20,7 +20,7 @@ const store = tasksStore();
 const { tasks } = storeToRefs(store);
 const { settings } = storeToRefs(settingsStore());
 const currentTask = tasks.value.find((task) => task.id === id);
-const timer = ref<NodeJS.Timer | null>(null);
+const timer = ref<ReturnType<typeof setInterval> | null>(null);
 const timersCount = ref<number>(0);
 
 watch(timersCount, () => {

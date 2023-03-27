@@ -22,14 +22,14 @@ defineProps<IProps>();
 <template>
   <div class="home__inner page">
     <h2 class="home__subtitle">Все задачи</h2>
-    <ul class="tasks__list">
+    <TransitionGroup mode="out-in" name="task" tag="ul" class="tasks__list">
       <TasksItem
         v-for="task in tasks"
         :key="task.id"
         :id="task.id"
         :name="task.name"
       />
-    </ul>
+    </TransitionGroup>
     <button
       @click="() => addNewTask()"
       class="tasks__button btn"
@@ -57,11 +57,22 @@ defineProps<IProps>();
     margin: 25px auto
     max-height: calc(100vh - 300px)
     min-height: 300px
-    overflow: hidden
-    overflow-y: auto
+    overflow: hidden auto
     padding: 0 5px 0 0
   &__button
     margin: auto auto 0
+
+.task
+  &-move,
+  &-enter-active,
+  &-leave-active
+    transition: .5s
+  &-enter-from
+    transform: translate(-30px, 0)
+    opacity: 0
+  &-leave-to
+    transform: translate(30px, 0)
+    opacity: 0
 
 @media(max-width: 480px)
   .tasks
